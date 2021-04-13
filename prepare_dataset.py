@@ -26,7 +26,7 @@ def prepare_dataset(dataset_path, json_path, n_mfcc=13, hop_length=512, n_fft=20
         # we need to ensure that we are not at root level
         if dir_path is not dataset_path:
             # update mappings
-            category = dir_path.split("/")[-1]  # category name ex: dataset/wahad -> [dataset, wahad]
+            category = dir_path.split("\\")[-1]  # category name ex: dataset\\wahad -> [dataset, wahad]
             data["mappings"].append(category)
             print(f"Processing {category}")
 
