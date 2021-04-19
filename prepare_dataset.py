@@ -60,4 +60,3 @@ def prepare_dataset(dataset_path, json_path, n_mfcc=13, hop_length=512, n_fft=20
 
 if __name__ == "__main__":
     prepare_dataset(DATASET_PATH, JSON_PATH)
-

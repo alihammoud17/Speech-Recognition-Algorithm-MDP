@@ -1,0 +1,7 @@
+venv
+dataset
+.idea/
+data.json
+.gitignore
+__pycache__/
+test/
