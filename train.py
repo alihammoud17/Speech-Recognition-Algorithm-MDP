@@ -3,6 +3,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 import tensorflow.keras as keras
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import classification_report
 
 DATA_PATH = "data.json"
 SAVED_MODEL_PATH = "model.h5"
@@ -15,7 +17,7 @@ see before an update and running like the back propagation algorithm
 (learning SAP) """
 BATCH_SIZE = 32
 NUM_KEYWORDS = 4
-PATIENCE = 5
+PATIENCE = 20
 
 
 def load_dataset(data_path):
@@ -59,22 +61,22 @@ def build_model(input_shape, learning_rate, error="sparse_categorical_crossentro
 
     # Convolutional neural network
     # conv layer 1
-    model.add(keras.layers.Conv2D(64, (3, 3), activation="relu",
-                                  input_shape=input_shape,
-                                  kernel_regularizer=keras.regularizers.l2(0.001)))
+    model.add(keras.layers.Conv2D(32, (3, 3), activation="relu",
+                                  input_shape=input_shape))
+    """kernel_regularizer=keras.regularizers.l2(0.001)))"""
     """ batch normalization: technique to speed up training 
     and get better results. It normalizes the activation in a 
      current layer """
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPool2D((3, 3), strides=(2, 2), padding="same"))
     # conv layer 2
-    model.add(keras.layers.Conv2D(32, (3, 3), activation="relu"
-                                  , kernel_regularizer=keras.regularizers.l2(0.001)))
+    model.add(keras.layers.Conv2D(32, (3, 3), activation="relu"))
+    """, kernel_regularizer=keras.regularizers.l2(0.001)))"""
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPool2D((3, 3), strides=(2, 2), padding="same"))
     # conv layer 3
-    model.add(keras.layers.Conv2D(32, (2, 2), activation="relu"
-                                  , kernel_regularizer=keras.regularizers.l2(0.001)))
+    model.add(keras.layers.Conv2D(32, (2, 2), activation="relu"))
+    """, kernel_regularizer=keras.regularizers.l2(0.001)))"""
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPool2D((2, 2), strides=(2, 2), padding="same"))
     # flatten the output, feed it into a dense layer
@@ -116,7 +118,7 @@ def train(model, epochs, batch_size, patience, X_train, y_train, X_validation, y
                         batch_size=batch_size,
                         validation_data=(X_validation, y_validation),
                         verbose=1)
-    # callbacks = [earlystop_callback],
+    # callbacks=[earlystop_callback])
     return history
 
 
@@ -169,8 +171,11 @@ def main():
     plot_history(history)
 
     # evaluate model
-    test_error, test_accuracy = model.evaluate(X_test, y_test)
-    print(f"Test error: {test_error}, test accuracy: {test_accuracy * 100}")
+    # test_error, test_accuracy = model.evaluate(X_test, y_test)
+    # print(f"Test error: {test_error}, test accuracy: {test_accuracy * 100}")
+    # predictions = model.predict_classes(X_test)
+    # print(classification_report(y_test, predictions))
+    # print(accuracy_score(y_test, predictions))
 
     # save model
     model.save(SAVED_MODEL_PATH)

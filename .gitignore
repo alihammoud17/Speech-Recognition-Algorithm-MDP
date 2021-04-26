@@ -5,3 +5,5 @@ data.json
 .gitignore
 __pycache__/
 test/
+backups
+remove_zeroes.py
