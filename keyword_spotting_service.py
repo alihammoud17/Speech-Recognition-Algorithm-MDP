@@ -1,9 +1,7 @@
-import os
 
 import numpy as np
 import tensorflow.keras as keras
 import librosa
-from VoiceRecorder import voice_recorder
 
 MODEL_PATH = "model.h5"
 NUM_SAMPLES_TO_CONSIDER = 22050  # 1 sec
@@ -56,8 +54,7 @@ def Keyword_Spotting_Service():
 
 if __name__ == "__main__":
     kss = Keyword_Spotting_Service()
-    kw1 = kss.predict("test\\Arbaa.wav")
-    kw2 = kss.predict("test\\Tlete.wav")
-    kw3 = kss.predict("test\\Tnen.wav")
-    kw4 = kss.predict("test\\Wahad.wav")
-    print(f"Predicted kw: {kw1}, {kw2}, {kw3}, {kw4}")
+    kw1 = kss.predict("test\\Wahad_test_test.wav")
+    kw3 = kss.predict("test\\Tnen_test_test.wav")
+    print(f"Predicted kw: {kw1} {kw3}")
+

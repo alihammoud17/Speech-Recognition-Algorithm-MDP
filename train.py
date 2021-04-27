@@ -61,22 +61,22 @@ def build_model(input_shape, learning_rate, error="sparse_categorical_crossentro
 
     # Convolutional neural network
     # conv layer 1
-    model.add(keras.layers.Conv2D(32, (3, 3), activation="relu",
-                                  input_shape=input_shape))
-    """kernel_regularizer=keras.regularizers.l2(0.001)))"""
+    model.add(keras.layers.Conv2D(64, (3, 3), activation="relu",
+                                  input_shape=input_shape,
+                                  kernel_regularizer=keras.regularizers.l2(0.001)))
     """ batch normalization: technique to speed up training 
     and get better results. It normalizes the activation in a 
      current layer """
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPool2D((3, 3), strides=(2, 2), padding="same"))
     # conv layer 2
-    model.add(keras.layers.Conv2D(32, (3, 3), activation="relu"))
-    """, kernel_regularizer=keras.regularizers.l2(0.001)))"""
+    model.add(keras.layers.Conv2D(32, (3, 3), activation="relu"
+                                  , kernel_regularizer=keras.regularizers.l2(0.001)))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPool2D((3, 3), strides=(2, 2), padding="same"))
     # conv layer 3
-    model.add(keras.layers.Conv2D(32, (2, 2), activation="relu"))
-    """, kernel_regularizer=keras.regularizers.l2(0.001)))"""
+    model.add(keras.layers.Conv2D(32, (2, 2), activation="relu"
+                                  , kernel_regularizer=keras.regularizers.l2(0.001)))
     model.add(keras.layers.BatchNormalization())
     model.add(keras.layers.MaxPool2D((2, 2), strides=(2, 2), padding="same"))
     # flatten the output, feed it into a dense layer
@@ -171,8 +171,8 @@ def main():
     plot_history(history)
 
     # evaluate model
-    # test_error, test_accuracy = model.evaluate(X_test, y_test)
-    # print(f"Test error: {test_error}, test accuracy: {test_accuracy * 100}")
+    test_error, test_accuracy = model.evaluate(X_test, y_test)
+    print(f"Test error: {test_error}, test accuracy: {test_accuracy * 100}")
     # predictions = model.predict_classes(X_test)
     # print(classification_report(y_test, predictions))
     # print(accuracy_score(y_test, predictions))
